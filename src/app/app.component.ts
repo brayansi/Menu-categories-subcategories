@@ -14,18 +14,35 @@ export class MyApp {
 
   rootPage: any = HomePage;
 
-  pages: Array<{title: string, component: any}>;
+  groups: Array<any> = []
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
-    this.initializeApp();
+   
 
     // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
-    ];
-
+    for (var i=0; i<10; i++) {
+      this.groups[i] = {
+        name: i,
+        items: [],
+        show: true
+      };
+      for (var j=0; j<3; j++) {
+        this.groups[i].items.push(i + '-' + j);
+      }
+    }
+    console.log(this.groups);
   }
+
+    /*
+   * if given group is the selected group, deselect it
+   * else, select the given group
+   */
+  toggleGroup = function(group) {
+    group.show = !group.show;
+  };
+  isGroupShown = function(group) {
+    return group.show;
+  };
 
   initializeApp() {
     this.platform.ready().then(() => {
